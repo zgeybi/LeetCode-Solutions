@@ -4,29 +4,15 @@ public:
         if (s.length() != t.length()) {
             return false;
         }
-        unordered_map<char, int> s1;
-        unordered_map<char, int> t1;
-        for (int i = 0; i < s.length(); i++){
-            if (s1.find(s[i]) == s1.end()) {
-                s1.insert({s[i], 1});
-            } else {
-                int j = s1.at(s[i]);
-                s1.at(s[i]) = ++j;
-            }
-            if (t1.find(t[i]) == t1.end()) {
-                t1.insert({t[i], 1});
-            } else {
-                int j = t1.at(t[i]);
-                t1.at(t[i]) = ++j;
-            }
+        int s1[256] = {0};
+        int t1[256] = {0};
+        int size = s.length();
+        for (int i = 0; i < size; i++) {
+            s1[s[i]]++;
+            t1[t[i]]++;
         }
-        for (auto& k: s1){
-            if (t1.find(k.first) == t1.end() || t1.at(k.first) != k.second) {
-                return false;
-            }
-        }
-        for (auto& k: t1){
-            if (s1.find(k.first) == s1.end() || s1.at(k.first) != k.second) {
+        for (int i = 0; i < 256; i++) {
+            if (s1[i] != t1[i]) {
                 return false;
             }
         }
